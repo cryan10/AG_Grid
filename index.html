@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>AG Grid POC</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="css/grayscale.css" rel="stylesheet">
+
+  <!--jQuery CDN-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!--AG Grid Scripts and styles-->
+  <script src="https://unpkg.com/ag-grid/dist/ag-grid.min.noStyle.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid/dist/styles/ag-grid.css">
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid/dist/styles/ag-theme-material.css">
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/grayscale.min.js"></script>
+
+
+</head>
+<header>
+  <div class="text-center" style="padding-top:20px">
+    <h2>Table built using AG Grid</h2>
+  </div>
+</header>
+
+<body id="page-top">
+  <section class="text-center">
+    <div class="container">
+      <div class="row">
+        <div class="dropdown show" style="padding-bottom:20px">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
+            Hide/Show Columns
+          </a>
+          <div class="dropdown-menu">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked="true" value="" id="dealerAcctNumCheckbox">
+              <label class="form-check-label" for="dealerAcctNum">
+                Dealer Account #
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked="true" value="" id="loanPhaseCheckbox">
+              <label class="form-check-label" for="loanPhase">
+                Loan Phase
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked="true" value="" id="loanPhaseStatusCheckbox">
+              <label class="form-check-label" for="loanPhaseStatus">
+                Loan Phase Status
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked="true" value="" id="appDateCheckbox">
+              <label class="form-check-label" for="appDate">
+                Application Date
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked="true" value="" id="lastUpdateDateCheckbox">
+              <label class="form-check-label" for="lastUpdateDate">
+                Last Update Date
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked="true" value="" id="nextActionsCheckbox">
+              <label class="form-check-label" for="nextActions">
+                Next Actions
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked="true" value="" id="createdByRepCheckbox">
+              <label class="form-check-label" for="createdByRep">
+                Created by Rep
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked="true" value="" id="level2Checkbox">
+              <label class="form-check-label" for="level2">
+                Level 2 Grouping
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked="true" value="" id="level3Checkbox">
+              <label class="form-check-label" for="level3">
+                Level 3 Grouping
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" checked="true" value="" id="distributorCheckbox">
+              <label class="form-check-label" for="distributor">
+                Distributor
+              </label>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-link" id="showAllButton">Show All Columns</button>
+        <div id="myGrid" style="height:400px;width:100%; border:solid 1px lightgray" class="ag-theme-material col-md-12"></div>
+        <div>
+          <br>
+          <p>Documentation and examples can be found at
+            <a href="https://www.ag-grid.com/" target="_blank">www.ag-grid.com/</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <script type="text/javascript" charset="utf-8">
+    // specify the columns
+    var columnDefs = [
+      { headerName: "UCFS Loan #", field: "loanNumber", lockPosition: true, cellClass: 'locked-col', width: 150, minWidth: 100, maxWidth: 150, cellStyle: { textAlign: 'left' } },
+      { headerName: "Dealer Acct #", field: "dealerAccountNumber", width: 150, minWidth: 100, maxWidth: 150, cellStyle: { textAlign: 'left' } },
+      { headerName: "Loan Phase", field: "loanPhase", width: 180, minWidth: 100, maxWidth: 350, cellStyle: { textAlign: 'left' } },
+      { headerName: "Loan Phase Status", field: "loanPhaseStatus", width: 180, minWidth: 100, maxWidth: 350, cellStyle: { textAlign: 'left' } },
+      { headerName: "Application Date (YYYY/MM/DD)", field: "applicationDate", width: 165, minWidth: 100, maxWidth: 270, cellStyle: { textAlign: 'left' } },
+      { headerName: "Last Updated (YYYY/MM/DD)", field: "dateLastUpdated", width: 150, minWidth: 100, maxWidth: 250, cellStyle: { textAlign: 'left' } },
+      { headerName: "Next Actions", field: "nextActions", width: 180, minWidth: 100, maxWidth: 350, cellStyle: { textAlign: 'left' } },
+      { headerName: "Created by Rep", field: "createdByRep", width: 160, minWidth: 100, maxWidth: 250, cellStyle: { textAlign: 'left' } },
+      { headerName: "Level 2 Grouping", field: "level2Grouping", width: 180, minWidth: 100, maxWidth: 250, cellStyle: { textAlign: 'left' } },
+      { headerName: "Level 3 Grouping", field: "level3Grouping", width: 180, minWidth: 100, maxWidth: 250, cellStyle: { textAlign: 'left' } },
+      { headerName: "Distributor", field: "distributorName", width: 160, minWidth: 100, maxWidth: 250, cellStyle: { textAlign: 'left' } },
+    ];
+
+    // specify the data
+    var rowData = [
+      { loanNumber: '123456', dealerAccountNumber: '3345', loanPhase: 'Application Submitted', loanPhaseStatus: 'Awaiting Cobuyer Signature', applicationDate: '2018/05/30', dateLastUpdated: '2018/05/30', nextActions: 'Awaiting Seller Signature', createdByRep: 'George Fernandez', level2Grouping: 'Personal', level3Grouping: 'Pets', distributorName: 'Pet Store' },
+      { loanNumber: '198776', dealerAccountNumber: '2214', loanPhase: 'Application Submitted', loanPhaseStatus: 'Awaiting Buyer Signature', applicationDate: '2018/05/30', dateLastUpdated: '2018/05/30', nextActions: 'Awaiting Seller Signature', createdByRep: 'Sarah Reichert', level2Grouping: 'Home', level3Grouping: 'Cleaning Services', distributorName: 'White Whale Cleaning' },
+      { loanNumber: '113498', dealerAccountNumber: '2214', loanPhase: 'Application Submitted', loanPhaseStatus: 'Awaiting Buyer Signature', applicationDate: '2018/05/01', dateLastUpdated: '2018/05/14', nextActions: 'Awaiting Cobuyer Signature', createdByRep: 'Sarah Hiti', level2Grouping: 'Home', level3Grouping: 'Cleaning Services', distributorName: 'White Whale Cleaning' },
+      { loanNumber: '239087', dealerAccountNumber: '1132', loanPhase: 'Application Submitted', loanPhaseStatus: 'Awaiting Buyer Signature', applicationDate: '2018/04/28', dateLastUpdated: '2018/05/30', nextActions: 'Awaiting Cobuyer Signature', createdByRep: 'Tony Hunter', level2Grouping: 'Home', level3Grouping: 'Cleaning Products', distributorName: 'KwikClean' },
+      { loanNumber: '445443', dealerAccountNumber: '3345', loanPhase: 'Application Started', loanPhaseStatus: 'Awaiting Credit App Submission', applicationDate: '2018/03/14', dateLastUpdated: '2018/03/30', nextActions: 'Review Credit App', createdByRep: 'George Fernandez', level2Grouping: 'Personal', level3Grouping: 'Pets', distributorName: 'Pet Store' },
+      { loanNumber: '123212', dealerAccountNumber: '5547', loanPhase: 'Application Transmitting', loanPhaseStatus: 'Review Credit App', applicationDate: '2018/02/20', dateLastUpdated: '2018/03/15', nextActions: 'Approve Credit App', createdByRep: 'Tony Hunter', level2Grouping: 'Legal', level3Grouping: 'Legal Services', distributorName: 'Legal Advice, LLP' },
+      { loanNumber: '234556', dealerAccountNumber: '6787', loanPhase: 'Application Started', loanPhaseStatus: 'Awaiting Credit App Submission', applicationDate: '2018/01/11', dateLastUpdated: '2018/02/24', nextActions: 'Review Credit App', createdByRep: 'Tom Kelly', level2Grouping: 'Home', level3Grouping: 'Furniture', distributorName: 'Furniture Store' },
+      { loanNumber: '989876', dealerAccountNumber: '2214', loanPhase: 'Application Submitted', loanPhaseStatus: 'Awaiting Cobuyer Signature', applicationDate: '2017/11/11', dateLastUpdated: '2018/02/08', nextActions: 'Awaiting Seller Signature', createdByRep: '', level2Grouping: 'Home', level3Grouping: 'Cleaning Services', distributorName: 'White Whale Cleaning' },
+      { loanNumber: '874321', dealerAccountNumber: '1132', loanPhase: 'Application Approved', loanPhaseStatus: 'Awaiting Seller Signature', applicationDate: '2017/11/11', dateLastUpdated: '2017/12/05', nextActions: 'Fax Documents', createdByRep: 'George Fernandez', level2Grouping: 'Home', level3Grouping: 'Cleaning Products', distributorName: 'KwikClean' },
+      { loanNumber: '789654', dealerAccountNumber: '1132', loanPhase: 'Application Approved', loanPhaseStatus: 'Awaiting Seller Signature', applicationDate: '2017/04/24', dateLastUpdated: '2017/04/30', nextActions: 'Fax Documents', createdByRep: 'Sarah Reichert', level2Grouping: 'Home', level3Grouping: 'Cleaning Products', distributorName: 'KwikClean' },
+      { loanNumber: '556890', dealerAccountNumber: '3345', loanPhase: 'Application Approved', loanPhaseStatus: 'Awaitnig Seller Signature', applicationDate: '2016/08/08', dateLastUpdated: '2017/09/12', nextActions: 'Fax Documents', createdByRep: 'Tom Kelly', level2Grouping: 'Personal', level3Grouping: 'Pets', distributorName: 'Pet Store' },
+      { loanNumber: '443786', dealerAccountNumber: '1132', loanPhase: 'Application Transmitting', loanPhaseStatus: 'Review Credit App', applicationDate: '2016/03/20', dateLastUpdated: '2017/09/12', nextActions: 'Approve Credit App', createdByRep: 'Tori Muellauer', level2Grouping: 'Home', level3Grouping: 'Cleaning Products', distributorName: 'KwikClean' },
+      { loanNumber: '453654', dealerAccountNumber: '5547', loanPhase: 'Application Approved', loanPhaseStatus: 'Awaiting Seller Signature', applicationDate: '2016/07/19', dateLastUpdated: '2017/09/16', nextActions: 'Fax Documents', createdByRep: 'Catherine Arroyo', level2Grouping: 'Legal', level3Grouping: 'Legal Services', distributorName: 'Legal Advice, LLP' },
+      { loanNumber: '659087', dealerAccountNumber: '6787', loanPhase: 'Application Approved', loanPhaseStatus: 'Awaiting Seller Signature', applicationDate: '2016/07/11', dateLastUpdated: '2016/08/30', nextActions: 'Fax Documents', createdByRep: 'Alex Schrimpf', level2Grouping: 'Home', level3Grouping: 'Furniture', distributorName: 'Furniture Store' },
+      { loanNumber: '135648', dealerAccountNumber: '6787', loanPhase: 'Application Approved', loanPhaseStatus: 'Awaiting Seller Signature', applicationDate: '2016/01/20', dateLastUpdated: '2016/04/15', nextActions: 'Fax Documents', createdByRep: 'Alex Schrimpf', level2Grouping: 'Home', level3Grouping: 'Furniture', distributorName: 'Furniture Store' },
+      { loanNumber: '098778', dealerAccountNumber: '1132', loanPhase: 'Application Transmitting', loanPhaseStatus: 'Review Credit App', applicationDate: '2016/01/14', dateLastUpdated: '2016/05/22', nextActions: 'Approve Credit App', createdByRep: 'Sarah Reichert', level2Grouping: 'Home', level3Grouping: 'Cleaning Products', distributorName: 'KwikClean' },
+      { loanNumber: '234236', dealerAccountNumber: '3345', loanPhase: 'Application Transmitting', loanPhaseStatus: 'Review Credit App', applicationDate: '2016/10/05', dateLastUpdated: '2016/12/03', nextActions: 'Approve Credit App', createdByRep: 'Tom Kelly', level2Grouping: 'Personal', level3Grouping: 'Pets', distributorName: 'Pet Store' },
+      { loanNumber: '898754', dealerAccountNumber: '5547', loanPhase: 'Application Transmitting', loanPhaseStatus: 'Review Credit App', applicationDate: '2016/10/14', dateLastUpdated: '2017/09/14', nextActions: 'Approve Credit App', createdByRep: 'Tori Muellauer', level2Grouping: 'Legal', level3Grouping: 'Legal Services', distributorName: 'Legal Advice, LLP' },
+      { loanNumber: '454888', dealerAccountNumber: '1132', loanPhase: 'Application Transmitting', loanPhaseStatus: 'Review Credit App', applicationDate: '2016/04/18', dateLastUpdated: '2017/06/12', nextActions: 'Approve Credit App', createdByRep: 'Sarah Hiti', level2Grouping: 'Home', level3Grouping: 'Cleaning Products', distributorName: 'KwikClean' },
+      { loanNumber: '409776', dealerAccountNumber: '2214', loanPhase: 'Application Transmitting', loanPhaseStatus: 'Review Credit App', applicationDate: '2016/07/31', dateLastUpdated: '2017/03/22', nextActions: 'Approve Credit App', createdByRep: 'Tori Muellauer', level2Grouping: 'Home', level3Grouping: 'Cleaning Services', distributorName: 'White Whale Cleaning' }
+    ];
+
+    // let the grid know which columns and what data to use
+    var gridOptions = {
+      columnDefs: columnDefs,
+      rowData: rowData,
+      enableSorting: true,
+      enableFilter: true,
+      enableColResize: true,
+      onGridReady: function (params) {
+        params.api.autoSizeColumns();
+      }
+    };
+
+    //toggle feature for price, color and year column
+    function showDealerAcctNum(show) {
+      gridOptions.columnApi.setColumnVisible('dealerAccountNumber', show);
+    }
+    function showLoanPhase(show) {
+      gridOptions.columnApi.setColumnVisible('loanPhase', show);
+    }
+    function showLoanPhaseStatus(show) {
+      gridOptions.columnApi.setColumnVisible('loanPhaseStatus', show);
+    }
+    function showApplicationDate(show) {
+      gridOptions.columnApi.setColumnVisible('applicationDate', show);
+    }
+    function showDateLastUpdated(show) {
+      gridOptions.columnApi.setColumnVisible('dateLastUpdated', show);
+    }
+    function showNextActions(show) {
+      gridOptions.columnApi.setColumnVisible('nextActions', show);
+    }
+    function showCreatedByRep(show) {
+      gridOptions.columnApi.setColumnVisible('createdByRep', show);
+    }
+    function showLevel2Grouping(show) {
+      gridOptions.columnApi.setColumnVisible('level2Grouping', show);
+    }
+    function showLevel3Grouping(show) {
+      gridOptions.columnApi.setColumnVisible('level3Grouping', show);
+    }
+    function showDistName(show) {
+      gridOptions.columnApi.setColumnVisible('distributorName', show);
+    }
+
+    // lookup the container we want the Grid to use
+    var eGridDiv = document.querySelector('#myGrid');
+
+    // create the grid passing in the div to use together with the columns & data we want to use
+    new agGrid.Grid(eGridDiv, gridOptions);
+  </script>
+
+  <script>
+    $(document).ready(function () {
+      $("#dealerAcctNumCheckbox").change(function () {
+        if (this.checked) {
+          showDealerAcctNum(true);
+        }
+        else {
+          showDealerAcctNum(false);
+        }
+      });
+      $("#loanPhaseCheckbox").change(function () {
+        if (this.checked) {
+          showLoanPhase(true);
+        }
+        else {
+          showLoanPhase(false);
+        }
+      });
+      $("#loanPhaseStatusCheckbox").change(function () {
+        if (this.checked) {
+          showLoanPhaseStatus(true);
+        }
+        else {
+          showLoanPhaseStatus(false);
+        }
+      });
+      $("#appDateCheckbox").change(function () {
+        if (this.checked) {
+          showApplicationDate(true);
+        }
+        else {
+          showApplicationDate(false);
+        }
+      });
+      $("#lastUpdateDateCheckbox").change(function () {
+        if (this.checked) {
+          showDateLastUpdated(true);
+        }
+        else {
+          showDateLastUpdated(false);
+        }
+      });
+      $("#nextActionsCheckbox").change(function () {
+        if (this.checked) {
+          showNextActions(true);
+        }
+        else {
+          showNextActions(false);
+        }
+      });
+      $("#createdByRepCheckbox").change(function () {
+        if (this.checked) {
+          showCreatedByRep(true);
+        }
+        else {
+          showCreatedByRep(false);
+        }
+      });
+      $("#level2Checkbox").change(function () {
+        if (this.checked) {
+          showLevel2Grouping(true);
+        }
+        else {
+          showLevel2Grouping(false);
+        }
+      });
+      $("#level3Checkbox").change(function () {
+        if (this.checked) {
+          showLevel3Grouping(true);
+        }
+        else {
+          showLevel3Grouping(false);
+        }
+      });
+      $("#distributorCheckbox").change(function () {
+        if (this.checked) {
+          showDistName(true);
+        }
+        else {
+          showDistName(false);
+        }
+      });
+
+
+      $("#showAllButton").click(function () {
+        $("#dealerAcctNumCheckbox").prop('checked', true);
+        showDealerAcctNum(true);
+        $("#loanPhaseCheckbox").prop('checked', true);
+        showLoanPhase(true);
+        $("#loanPhaseStatusCheckbox").prop('checked', true);
+        showLoanPhaseStatus(true);
+        $("#appDateCheckbox").prop('checked', true);
+        showApplicationDate(true);
+        $("#lastUpdateDateCheckbox").prop('checked', true);
+        showDateLastUpdated(true);
+        $("#nextActionsCheckbox").prop('checked', true);
+        showNextActions(true);
+        $("#createdByRepCheckbox").prop('checked', true);
+        showCreatedByRep(true);
+        $("#level2Checkbox").prop('checked', true);
+        showLevel2Grouping(true);
+        $("#level3Checkbox").prop('checked', true);
+        showLevel3Grouping(true);
+        $("#distributorCheckbox").prop('checked', true);
+        showDistName(true);
+      });
+    });
+
+  </script>
+
+</body>
+
+</html>
