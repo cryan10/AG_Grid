@@ -116,7 +116,7 @@
           </div>
         </div>
         <button type="button" class="btn btn-link" id="showAllButton">Show All Columns</button>
-        <div id="myGrid" style="height:400px;width:100%; border:solid 1px lightgray" class="ag-theme-material col-md-12"></div>
+        <div id="myGrid" style="height:500px;width:100%; border:solid 1px lightgray" class="ag-theme-material col-md-12"></div>
         <div>
           <br>
           <p>Documentation and examples can be found at
@@ -176,9 +176,8 @@
       enableSorting: true,
       enableFilter: true,
       enableColResize: true,
-      onGridReady: function (params) {
-        params.api.autoSizeColumns();
-      }
+      pagination: true,
+      paginationPageSize: 10
     };
 
     //toggle feature for price, color and year column
